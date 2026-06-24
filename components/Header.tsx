@@ -6,7 +6,6 @@ import { useState } from "react";
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
   { href: "/memory-check", label: "Memory Check" },
   { href: "/risk-factors", label: "Risk Factors" },
   { href: "/brain-health", label: "Brain Health" },
@@ -17,9 +16,15 @@ const navItems = [
   { href: "/faq", label: "FAQ" }
 ];
 
+const aboutDropdownItems = [
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact Us" }
+];
+
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -67,6 +72,49 @@ export function Header() {
                 </li>
               );
             })}
+            
+            {/* About dropdown */}
+            <li className="relative">
+              <button
+                type="button"
+                className={`block w-full rounded-md px-3 py-2 text-left text-sm font-semibold transition md:w-auto ${
+                  pathname === "/about" || pathname === "/contact"
+                    ? "bg-teal text-white"
+                    : "text-slate-700 hover:bg-mist hover:text-ink"
+                }`}
+                onClick={() => setAboutDropdownOpen(!aboutDropdownOpen)}
+                aria-expanded={aboutDropdownOpen}
+                aria-haspopup="menu"
+              >
+                About
+              </button>
+              {aboutDropdownOpen && (
+                <ul className="absolute right-0 mt-2 w-48 rounded-md border border-slate-200 bg-white shadow-soft md:left-0 md:right-auto">
+                  {aboutDropdownItems.map((item) => {
+                    const active = pathname === item.href;
+                    return (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          className={`block rounded-md px-3 py-2 text-sm font-semibold transition ${
+                            active
+                              ? "bg-teal text-white"
+                              : "text-slate-700 hover:bg-mist hover:text-ink"
+                          }`}
+                          aria-current={active ? "page" : undefined}
+                          onClick={() => {
+                            setAboutDropdownOpen(false);
+                            setOpen(false);
+                          }}
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </li>
           </ul>
         </div>
       </nav>
