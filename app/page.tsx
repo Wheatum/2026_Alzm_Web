@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { ClinicalPrompt } from "@/components/ClinicalPrompt";
@@ -28,16 +29,26 @@ const pathways = [
 export default function Home() {
   return (
     <>
-      <section className="bg-gradient-to-b from-skySoft via-white to-mist">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-20">
-          <div className="flex flex-col justify-center">
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-teal">
+      <section className="relative overflow-hidden bg-slate-950">
+        <div className="pointer-events-none absolute inset-0">
+          <Image
+            src="/hero_1280.webp"
+            alt="Asian woman reading a book"
+            fill
+            className="object-cover opacity-80 scale-x-[-1]"
+            priority
+          />
+          <div className="absolute inset-0 bg-slate-950/40" />
+        </div>
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_0.95fr] lg:px-8 lg:py-24">
+          <div className="flex flex-col justify-center text-white">
+            <p className="text-sm font-bold uppercase tracking-[0.16em] text-cyan-300">
               Cognitive health awareness
             </p>
-            <h1 className="mt-4 text-4xl font-bold tracking-normal text-ink sm:text-6xl">
+            <h1 className="mt-4 text-4xl font-bold tracking-normal text-white sm:text-6xl">
               NestMemory
             </h1>
-            <p className="mt-5 max-w-2xl text-xl leading-9 text-slate-700">
+            <p className="mt-5 max-w-2xl text-xl leading-9 text-slate-100/90">
               A calm education and wellness portal for memory awareness, brain health habits, and
               symptom monitoring notes you can bring to professional care.
             </p>
@@ -50,14 +61,14 @@ export default function Home() {
               </Link>
               <Link
                 href="/resources"
-                className="inline-flex justify-center rounded-md border border-slate-300 bg-white px-6 py-3 text-base font-bold text-ink transition hover:bg-mist"
+                className="inline-flex justify-center rounded-md border border-white/20 bg-white/10 px-6 py-3 text-base font-bold text-white transition hover:bg-white/20"
               >
                 Explore Resources
               </Link>
             </div>
           </div>
-          <div className="contrast-panel rounded-lg border border-slate-200 bg-white p-6 shadow-soft">
-            <div className="rounded-md bg-mist p-5">
+          <div className="contrast-panel rounded-3xl border border-white/10 bg-white/10 p-6 shadow-soft backdrop-blur-md">
+            <div className="rounded-3xl bg-white/90 p-5 shadow-sm">
               <p className="text-sm font-bold text-ocean">Today&apos;s wellness snapshot</p>
               <dl className="mt-5 grid grid-cols-2 gap-4">
                 {[
@@ -66,14 +77,16 @@ export default function Home() {
                   ["Mood", "Calm"],
                   ["Notes", "2"]
                 ].map(([label, value]) => (
-                  <div key={label} className="rounded-md bg-white p-4">
+                  <div key={label} className="rounded-3xl bg-slate-100 p-4">
                     <dt className="text-sm text-slate-600">{label}</dt>
                     <dd className="mt-1 text-2xl font-bold text-ink">{value}</dd>
                   </div>
                 ))}
               </dl>
             </div>
-            <p className="mt-5 text-sm leading-6 text-slate-700">{medicalBoundary}</p>
+            <p className="mt-5 text-sm leading-6 text-slate-800 dark:text-slate-900 bg-white/95 px-4 py-3 rounded-2xl shadow-sm">
+              {medicalBoundary}
+            </p>
           </div>
         </div>
       </section>
